@@ -50,17 +50,10 @@ public class boardController {
             for (int j = 0; j < board[i].length; j++) {
                 char letter = board[i][j];
 
-                if (letter == 'W' || letter == '-') {
+                if (letter != 'W' && letter != '-') {
                     System.out.print(BLUE_TEXT);
-                    System.out.print(letter);
-                    System.out.print(RESET_COLORS);
-                    System.out.print(" ");
-                } else {
-                    System.out.print(GREEN_TEXT);
-                    System.out.print(letter);
-                    System.out.print(RESET_COLORS);
-                    System.out.print(" ");
                 }
+                System.out.print(letter + RESET_COLORS + " ");
             }
             System.out.println();
         }
@@ -69,18 +62,45 @@ public class boardController {
     public static void SetBoard(String difficulty) throws Exception {
         switch (difficulty.toLowerCase()) {
             case "easy":
-                // Carrier	    5 x 1
-                // Battleship	4 x 1
-                // Destroyer	3 x 3
-                // Submarine	1 x 5
                 AddShip("carrier", 1);
                 AddShip("battleship", 1);
                 AddShip("destroyer", 3);
                 AddShip("submarine", 5);
                 PrintBoard("CPU");
                 break;
+            case "medium":
+                AddShip("carrier", 1);
+                AddShip("battleship", 1);
+                AddShip("destroyer", 1);
+                AddShip("submarine", 2);
+                PrintBoard("CPU");
+                break;
+            case "hard":
+                AddShip("destroyer", 1);
+                AddShip("submarine", 1);
+                PrintBoard("CPU");
+                break;
             default:
                 throw new Exception("Invalid difficulty");
+        }
+    }
+
+    public static void ResetBoard(String boardType) throws Exception{
+        char[][] newBoard = new char[10][10];
+        for (int i = 0; i < newBoard.length; i++) {
+            for (int j = 0; j < newBoard[i].length; j++) {
+                newBoard[i][j] = '-';
+            }
+        }
+        switch (boardType.toLowerCase()) {
+            case "cpu":
+                CPUBoard = newBoard;
+                break;
+            case "player":
+                playerBoard = newBoard;
+                break;
+            default:
+                throw new Exception("Invalid board type");
         }
     }
 
