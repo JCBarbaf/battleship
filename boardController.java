@@ -60,6 +60,7 @@ public class boardController {
     }
 
     public static void SetBoard(String difficulty) throws Exception {
+        boardController.ResetBoard("cpu");
         switch (difficulty.toLowerCase()) {
             case "easy":
                 AddShip("carrier", 1);
